@@ -49,6 +49,24 @@ class UserModel {
             }
         });
     }
+    loginUser = (loginData, authenticateUser) => {
+        console.log('inside model', loginData);
+              Userdb.findOne({ email: loginData.email ,password: loginData.password}, (error, data) => {
+                if (error) {
+                  return authenticateUser(error, null);
+                }
+                else{  
+                  if (!data) {
+                  return authenticateUser("Invalid User", null);
+                }
+                  else{
+                    return authenticateUser(null, data);
+                  }
+              }
+              
+              });
+           
+        };
 
 
 }
