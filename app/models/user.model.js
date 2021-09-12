@@ -1,5 +1,6 @@
 //import mongoose
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 //create schema
 const userSchema = mongoose.Schema({
@@ -27,20 +28,34 @@ const userSchema = mongoose.Schema({
     }
 });
 
-//create model 
-const Userdb = mongoose.model('user', userSchema);
+userSchema.pre('save', async function (next) {
+    try {
+      // generate a salt
+      const salt = await bcrypt.genSalt(10);
+      // hash the password along with our new salt
+      const hashedPassword = await bcrypt.hash(this.password, salt);
+      // override the cleartext password with the hashed one
+      this.password = hashedPassword;
+      this.confirmPassword = hashedPassword;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  });
 
+//create model
+const Userdb = mongoose.model('user', userSchema);
 
 class UserModel {
     createDetails = (userDetails, saveUserData) => {
         console.log("inside model", userDetails);
-        const newUser = new Userdb({
-            firstName: userDetails.firstName,
-            lastName: userDetails.lastName,
-            email: userDetails.email,
-            password: userDetails.password,
-            confirmPassword: userDetails.confirmPassword,
-        });
+        const newUser = new Userdb(
+            {firstName: userDetails.firstName,
+             lastName: userDetails.lastName, 
+             email: userDetails.email, 
+             password: userDetails.password, 
+             confirmPassword: userDetails.confirmPassword}
+        );
         newUser.save((error, data) => {
             if (error) {
                 saveUserData(err, null);
@@ -51,27 +66,23 @@ class UserModel {
     }
     loginUser = (loginData, authenticateUser) => {
         console.log('inside model', loginData);
-              Userdb.findOne({ email: loginData.email ,password: loginData.password}, (error, data) => {
-                if (error) {
-                  return authenticateUser(error, null);
-                }
-                else{  
-                  if (!data) {
-                  return authenticateUser("Invalid User", null);
-                }
-                  else{
+        Userdb.findOne({
+            email: loginData.email
+        }, (error, data) => {
+            if (error) {
+                return authenticateUser(error, null);
+            } else {
+                if (!data) {
+                    return authenticateUser("Invalid User", null);
+                } else {
                     return authenticateUser(null, data);
-                  }
-              }
-              
-              });
-           
-        };
+                }
+            }
 
+        });
+
+    };
 
 }
 
 module.exports = new UserModel();
-
-
-
