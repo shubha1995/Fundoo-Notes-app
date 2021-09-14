@@ -46,7 +46,6 @@ const Userdb = mongoose.model('user', userSchema);
 
 class UserModel {
     createDetails = (userDetails, saveUserData) => {
-        console.log("inside model", userDetails);
         const newUser = new Userdb(
             {firstName: userDetails.firstName,
              lastName: userDetails.lastName, 
@@ -63,7 +62,6 @@ class UserModel {
         });
     }
     loginUser = (loginData, authenticateUser) => {
-        console.log('inside model', loginData);
         Userdb.findOne({
             email: loginData.email
         }, (error, data) => {

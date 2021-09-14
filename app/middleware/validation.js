@@ -8,4 +8,9 @@ const authUserRegister  = Joi.object({
     confirmPassword: Joi.string().required()
 });
 
-module.exports = {authUserRegister};
+const authUserLogin = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
+})
+
+module.exports = {authUserRegister, authUserLogin};

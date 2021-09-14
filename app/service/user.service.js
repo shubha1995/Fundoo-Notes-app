@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 
 class UserService {
     registerUser = (userData, saveUserData) => {
-        console.log("inside service", userData);
         userModel.createDetails(userData, (err,data)=>{
             if (err){
                 saveUserData(err, null);
@@ -15,7 +14,6 @@ class UserService {
         });
     };
     loginUser = (loginData, authenticateUser) => {  
-      console.log("inside service", loginData);
         userModel.loginUser(loginData, (err, data) => {
           if (data) {
             bcrypt.compare(loginData.password, data.password, (err,data)=>{
