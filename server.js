@@ -1,10 +1,10 @@
-//import express library
 const express = require('express');
 const bodyParser = require('body-parser');
-//import mongoose
 const mongoose = require('mongoose');
+
 // import database module 
 const dbConfig = require('./config/database.config.js')
+
 
 //create app
 const app = express();

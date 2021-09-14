@@ -1,9 +1,9 @@
-//import service
 const userService = require('../service/user.service');
+const {authUserRegister} = require('../middleware/validation');
 
 class UserDataController {
-    create = (req, res) => {
-        console.log("inside controller", req.body);
+    create = (req, res) => {   
+        console.log("inside controller", req.body)    
         try{
             const userData = {
                 firstName: req.body.firstName,
@@ -12,6 +12,17 @@ class UserDataController {
                 password: req.body.password,
                 confirmPassword: req.body.confirmPassword
             };
+
+            const registerValidation = authUserRegister.validate(userData);
+            if(registerValidation.error) {
+                res.status(400).send({
+                    success: false,
+                    message: "Enter valid fields",
+                    data: registerValidation
+                });
+                return;
+            }
+
             userService.registerUser(userData, (error, data) => {
                 if (error) {
                     return res.status(409).json({
@@ -34,8 +45,7 @@ class UserDataController {
             })  ;
          }
     }
-    login = (req, res) =>  {
-        console.log('inside controller', req.body);
+    login = (req, res) =>  {     
         try {
           const loginData = {
             email: req.body.email,

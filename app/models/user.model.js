@@ -32,9 +32,7 @@ userSchema.pre('save', async function (next) {
     try {
       // generate a salt
       const salt = await bcrypt.genSalt(10);
-      // hash the password along with our new salt
       const hashedPassword = await bcrypt.hash(this.password, salt);
-      // override the cleartext password with the hashed one
       this.password = hashedPassword;
       this.confirmPassword = hashedPassword;
       next();
