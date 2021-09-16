@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 // import database module 
 const dbConfig = require('./config/database.config.js')
@@ -36,8 +37,8 @@ app.get('/', (req, res) => {
 require('./app/routes/user.routes.js')(app)
 
 // listen for requests
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
+app.listen(process.env.PORT, () => {
+    console.log("Server is listening on port" +" "+ process.env.PORT);
 });
 
 module.exports = app;

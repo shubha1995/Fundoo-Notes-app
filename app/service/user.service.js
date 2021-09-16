@@ -1,7 +1,6 @@
-//import model 
 const userModel = require('../models/user.model.js')
-//import bcrypt
 const bcrypt = require("bcrypt");
+const auth = require('../middleware/authenticate');
 
 class UserService {
     registerUser = (userData, saveUserData) => {
@@ -21,7 +20,8 @@ class UserService {
                 authenticateUser(err, null);
               }
               if(data) {
-                authenticateUser(null, data);
+                const token = auth.generateToken(data);
+                authenticateUser(null, token);
               } else {
                 authenticateUser('Password does not match');
               }

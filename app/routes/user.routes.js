@@ -1,4 +1,3 @@
-//import controller
 const userController = require("../controllers/user.controller.js");
 
 module.exports = (app) => {

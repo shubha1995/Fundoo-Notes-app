@@ -32,7 +32,7 @@ class UserDataController {
                     res.status(201).json({
                     success: true,
                     message: 'user successfully registered',
-                    data: data
+                    data:data
                 });
             }
             });
@@ -71,8 +71,8 @@ class UserDataController {
             }
             return res.status(200).send({
               success: true,
-              message: 'logged in successfully',
-              data
+              message: 'logged in successfully',  
+              token:data
             });
           });
         } catch (err) {

@@ -1,3 +1,8 @@
+require("dotenv").config(); 
+// const dotenv = require('dotenv')
+// dotenv.config({path:__dirname+'/.env'});
+
 module.exports = {
-    url: 'mongodb://localhost:27017/fundoo-notes-app'
+    url: process.env.DB_URL,
 }
+
