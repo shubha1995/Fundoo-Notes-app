@@ -14,12 +14,13 @@ class UserService {
     };
     loginUser = (loginData, authenticateUser) => {  
         userModel.loginUser(loginData, (err, data) => {
+          console.log(data)
           if (data) {
-            bcrypt.compare(loginData.password, data.password, (err,data)=>{
+            bcrypt.compare(loginData.password, data.password, (err, res)=>{
               if (err) {
                 authenticateUser(err, null);
               }
-              if(data) {
+              if(res) {
                 const token = auth.generateToken(data);
                 authenticateUser(null, token);
               } else {

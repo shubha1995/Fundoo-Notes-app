@@ -62,7 +62,7 @@ class UserModel {
         });
     }
     loginUser = (loginData, authenticateUser) => {
-        Userdb.findOne({
+         Userdb.findOne({
             email: loginData.email
         }, (error, data) => {
             if (error) {
@@ -71,6 +71,7 @@ class UserModel {
                 if (!data) {
                     return authenticateUser("Invalid User", null);
                 } else {
+                    console.log("inside model", data)
                     return authenticateUser(null, data);
                 }
             }

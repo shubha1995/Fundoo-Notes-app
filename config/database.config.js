@@ -1,8 +1,14 @@
 require("dotenv").config(); 
-// const dotenv = require('dotenv')
-// dotenv.config({path:__dirname+'/.env'});
+const mongoose = require('mongoose');
 
-module.exports = {
-    url: process.env.DB_URL,
-}
+mongoose.Promise = global.Promise;
 
+// Connecting to the database
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to the database");    
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
