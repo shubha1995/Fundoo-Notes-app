@@ -8,5 +8,5 @@ exports.generateToken = (data)=>{
         lastName: data.lastName,
         email: data.email
     } 
-    return jwt.sign(dataForToken, process.env.TOKEN_KEY, {expiresIn: '30S'});
+    return jwt.sign(dataForToken, process.env.TOKEN_KEY, {expiresIn: '1H'});
 }

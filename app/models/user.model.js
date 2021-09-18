@@ -71,7 +71,6 @@ class UserModel {
                 if (!data) {
                     return authenticateUser("Invalid User", null);
                 } else {
-                    console.log("inside model", data)
                     return authenticateUser(null, data);
                 }
             }

@@ -12,25 +12,25 @@ class UserService {
             }
         });
     };
-    loginUser = (loginData, authenticateUser) => {  
+    loginUser = async(loginData, authenticateUser) => { 
+      //call model layer 
         userModel.loginUser(loginData, (err, data) => {
-          console.log(data)
-          if (data) {
-            bcrypt.compare(loginData.password, data.password, (err, res)=>{
               if (err) {
                 authenticateUser(err, null);
               }
-              if(res) {
+              else {
+                let compare = bcrypt.compareSync(loginData.password, data.password);
+              if(compare) {
                 const token = auth.generateToken(data);
-                authenticateUser(null, token);
+                authenticateUser(null,{data,token});
               } else {
-                authenticateUser('Password does not match');
+                authenticateUser('Password does not match', null);
               }
-          });
-        }else{
-          authenticateUser("user not found");
+          };
+          
         }
-      });
+       
+      );
     }
     
 }

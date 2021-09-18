@@ -72,7 +72,8 @@ class UserDataController {
             return res.status(200).send({
               success: true,
               message: 'logged in successfully',  
-              token:data
+              data:data.data,
+              token:data.token
             });
           });
         } catch (err) {
