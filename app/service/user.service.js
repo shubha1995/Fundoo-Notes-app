@@ -8,23 +8,23 @@ class UserService {
             if (err){
                 saveUserData(err, null);
             }else {
-                saveUserData(err, data);
+                saveUserData(null, data);
             }
         });
     };
-    loginUser = async(loginData, authenticateUser) => { 
+    loginUser = (loginData, authenticateUser) => { 
       //call model layer 
         userModel.loginUser(loginData, (err, data) => {
               if (err) {
-                authenticateUser(err, null);
+                return authenticateUser(err, null);
               }
               else {
-                let compare = bcrypt.compareSync(loginData.password, data.password);
-              if(compare) {
+                let result = bcrypt.compareSync(loginData.password, data.password);
+              if(result) {
                 const token = auth.generateToken(data);
-                authenticateUser(null,{data,token});
+                return authenticateUser(null,token);
               } else {
-                authenticateUser('Password does not match', null);
+                return authenticateUser('Password does not match', null);
               }
           };
           

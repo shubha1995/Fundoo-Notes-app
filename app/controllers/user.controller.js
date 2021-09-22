@@ -44,7 +44,7 @@ class UserDataController {
             })  ;
          }
     }
-    login = (req, res) =>  {      
+    login = (req, res) => {      
         try {
           const loginData = {
             email: req.body.email,
@@ -71,9 +71,8 @@ class UserDataController {
             }
             return res.status(200).send({
               success: true,
-              message: 'logged in successfully',  
-              data:data.data,
-              token:data.token
+              message: 'logged in successfull',  
+              token:data
             });
           });
         } catch (err) {

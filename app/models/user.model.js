@@ -62,9 +62,7 @@ class UserModel {
         });
     }
     loginUser = (loginData, authenticateUser) => {
-         Userdb.findOne({
-            email: loginData.email
-        }, (error, data) => {
+         Userdb.findOne({ email: loginData.email}, (error, data) => {   
             if (error) {
                 return authenticateUser(error, null);
             } else {
