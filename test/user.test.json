@@ -9,7 +9,7 @@
         },
         "detailsWithEmptyFirstName":{
             "firstName":"",
-            "lastName":"Nath",
+            "lastName":"Nath", 
             "email":"sankar@gmail.com",
             "password":"Shubha@123",
             "confirmPassword": "Shubha@123"

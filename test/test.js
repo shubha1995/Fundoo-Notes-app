@@ -5,7 +5,7 @@ const user = require('./user.test.json');
 chai.should();
 chai.use(chaiHttp);
 
-describe("User Registration ", () => {
+describe('User Registration ', () => {
   it("given_validDetails_WhenCorrect_ShouldReturn201", (done) => {
     const userDetails = user.user.validDetails;
     chai
