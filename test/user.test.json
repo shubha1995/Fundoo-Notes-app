@@ -1,40 +1,63 @@
 {
     "user":{
         "validDetails":{
-            "firstName":"Shubha",
-            "lastName":"Bhaumik",
-            "email":"sbhaumikdmr@gmail.com",
-            "password":"Shubha@123"
+            "firstName":"Akash",
+            "lastName":"Roy",
+            "email":"akash@gmail.com",
+            "password":"Akash@5487",
+            "confirmPassword": "Akash@5487"
         },
-        "detailsWithEmptydFirstName":{
+        "detailsWithEmptyFirstName":{
             "firstName":"",
             "lastName":"Nath",
             "email":"sankar@gmail.com",
-            "password":"Shubha@123"
+            "password":"Shubha@123",
+            "confirmPassword": "Shubha@123"
         },
         "detailsWithEmptyLastName":{
             "firstName":"Sankar",
             "lastName":"",
             "email":"sankar@gmail.com",
-            "password":"Sankar@123"
+            "password":"Sankar@123",
+            "confirmPassword": "Sankar@123"
         },
-        "detailsWithInvalidmail":{
+        "detailsWithInvalidemail":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahulgmail.com",
-            "password":"Rahul@123"
+            "password":"Rahul@123",
+            "confirmPassword": "Rahul@123"
+            
         },
         "detailsWithWeakPassword":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahul@gmail",
-            "password":"Rahul123"
+            "password":"Rahul123",
+            "confirmPassword": "Rahul123"
         },
         "detailsWithWeakconfirmPassword":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahul@gmail",
-            "password":"Rahul123"
+            "password":"Rahul123",
+            "confirmPassword": "Rahul123"
+        },
+        "login": {
+            "email": "chandan@gmail.com",
+            "password": "Chandan@5487"
+        },
+        "loginWrongPassword": {
+            "email": "chandan@gmail.com",
+            "password": "Chandan@54"
+        },
+        "loginWithoutPassword": {
+            "email": "chandan@gmail.com",
+            "password": ""
+        },
+        "loginWithWrongEmail": {
+            "email": "chandangmail.com",
+            "password": "Chandan@5487"
         }
     }
 }
