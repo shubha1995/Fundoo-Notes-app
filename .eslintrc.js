@@ -1,20 +1,28 @@
 module.exports = {
+  parser: "babel-eslint",
   env: {
     browser: true,
+    commonjs: true,
     es2021: true,
+    node: true,
+    mocha: true
   },
   extends: [
-    'standard',
-    'airbnb-base'
+    "standard"
   ],
   parserOptions: {
     ecmaVersion: 12,
+    sourceType: "module"
   },
-
   rules: {
-    'linebreak-style': 0,
-    'no-console': 0,
-    'no-regex-spaces': 0,
-    'no-unexpected-multiline': 0,
-  },
-}
+    semi: [
+      "error",
+      "always"
+    ],
+    quotes: [
+      "error",
+      "double"
+    ],
+    indent: ["error", 2]
+  }
+};
