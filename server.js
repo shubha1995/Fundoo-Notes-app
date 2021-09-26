@@ -1,10 +1,13 @@
 const express = require("express");
 require("dotenv").config();
 const dbConfig = require("./config/database.config.js");
-dbConfig.dbConnection();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger/swagger.json");
+
 // create app
 const app = express();
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+dbConfig.dbConnection();
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
