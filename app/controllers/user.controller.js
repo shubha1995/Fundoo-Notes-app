@@ -1,5 +1,6 @@
 const userService = require("../service/user.service");
 const { authUserRegister, authUserLogin } = require("../middleware/validation");
+const { logger } = require("../../logger/logger");
 
 class UserDataController {
     create = (req, res) => {
@@ -19,6 +20,7 @@ class UserDataController {
             message: "Enter valid fields",
             data: registerValidation
           });
+          logger.error("Invalid details");
           return;
         }
 
@@ -29,6 +31,7 @@ class UserDataController {
               message: "User allready exist"
             });
           } else {
+            logger.info("User registered");
             res.status(201).json({
               success: true,
               message: "user successfully registered",
@@ -37,6 +40,7 @@ class UserDataController {
           }
         });
       } catch (error) {
+        logger.error("Internal server error");
         return res.status(500).json({
           success: false,
           message: "Server-Error",

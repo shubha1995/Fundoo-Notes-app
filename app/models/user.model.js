@@ -1,6 +1,7 @@
 // import mongoose
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { logger } = require("../../logger/logger");
 
 // create schema
 const userSchema = mongoose.Schema({
@@ -57,8 +58,10 @@ class UserModel {
       );
       newUser.save((error, data) => {
         if (error) {
+          logger.error("Find error in model");
           saveUserData(error, null);
         } else {
+          logger.info("User suucesfully registered");
           saveUserData(null, data);
         }
       });
@@ -67,11 +70,14 @@ class UserModel {
     loginUser = (loginData, authenticateUser) => {
       Userdb.findOne({ email: loginData.email }, (error, data) => {
         if (error) {
+          logger.error("Find error while loggin user");
           return authenticateUser(error, null);
         } else {
           if (!data) {
+            logger.error("Invalid User");
             return authenticateUser("Invalid User", null);
           } else {
+            logger.info("Email id found");
             return authenticateUser(null, data);
           }
         }
