@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const dbConfig = require("./config/database.config.js");
+const { logger } = require("./logger/logger");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger/swagger.json");
 
@@ -24,7 +25,9 @@ require("./app/routes/user.routes.js")(app);
 
 // listen for requests
 app.listen(process.env.PORT, () => {
-  console.log("Server is listening on port" + " " + process.env.PORT);
+  // console.log("Server is listening on port" + " " + process.env.PORT);
+  logger.info(`Server is listening on port : ${process.env.PORT}`);
+  logger.error(" Something is wrong ");
 });
 
 module.exports = app;
