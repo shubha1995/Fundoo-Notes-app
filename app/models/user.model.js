@@ -83,6 +83,17 @@ class UserModel {
         }
       });
     };
+
+    forgotPassword = (email, callback) => {
+      Userdb.findOne({ email: email.email }, (err, data) => {
+        if (err || !data) {
+          // eslint-disable-next-line node/no-callback-literal
+          return callback("User with email id doesnt exists", null);
+        } else {
+          return callback(null, data);
+        }
+      });
+    };
 }
 
 module.exports = new UserModel();

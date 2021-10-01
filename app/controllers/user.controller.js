@@ -87,6 +87,32 @@ class UserDataController {
         });
       }
     }
+
+    forgotPassword = (req, res) => {
+      const email = req.body;
+      const loginValidation = authUserLogin.validate(email);
+      if (loginValidation.error) {
+        return res.status(400).send({
+          success: false,
+          message: "Invalid email address"
+        });
+      } else {
+        userService.forgotPassword(email, (error, data) => {
+          if (error) {
+            return res.status(400).send({
+              success: false,
+              message: "Email is not exist"
+            });
+          } else {
+            return res.status(200).json({
+              success: true,
+              message: "Email reset link sent successfully.",
+              data: data
+            });
+          }
+        });
+      }
+    }
 }
 
 module.exports = new UserDataController();

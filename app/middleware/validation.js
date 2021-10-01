@@ -1,5 +1,4 @@
 const Joi = require("joi");
-// const jwt = require("jsonwebtoken");
 
 const authUserRegister = Joi.object({
   firstName: Joi.string().required(),
