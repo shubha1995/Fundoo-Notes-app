@@ -89,7 +89,7 @@ describe("User Registration ", () => {
         }
         res.should.have.status(400);
         res.body.should.have.property("success").eql(false);
-        // done();
+        done();
       });
   });
 });

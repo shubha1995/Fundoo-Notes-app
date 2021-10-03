@@ -84,15 +84,21 @@ class UserModel {
       });
     };
 
-    forgotPassword = (email, callback) => {
-      Userdb.findOne({ email: email.email }, (err, data) => {
-        if (err || !data) {
-          // eslint-disable-next-line node/no-callback-literal
-          return callback("User with email id doesnt exists", null);
-        } else {
-          return callback(null, data);
-        }
-      });
+    forgotPassword = (userDetails, callback) => {
+      try {
+        Userdb.findOne({ email: userDetails.email }, (err, data) => {
+          if (err || !data) {
+            // eslint-disable-next-line node/no-callback-literal
+            return callback(err + "invalid email", null);
+          } else {
+            return callback(null, data);
+          }
+        });
+      } catch (error) {
+        logger.error("Internal Error");
+        // eslint-disable-next-line node/no-callback-literal
+        return callback("Internal Error", null);
+      }
     };
 }
 
