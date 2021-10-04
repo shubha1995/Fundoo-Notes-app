@@ -1,5 +1,5 @@
 const userService = require("../service/user.service");
-const { authUserRegister, authUserLogin } = require("../middleware/validation");
+const { authUserRegister, authUserLogin, authUserforgot } = require("../middleware/validation");
 const { logger } = require("../../logger/logger");
 
 class UserDataController {
@@ -93,6 +93,15 @@ class UserDataController {
         const user = {
           email: req.body.email
         };
+        const emailValidation = authUserforgot.validate(user);
+        if (emailValidation.error) {
+          res.status(400).send({
+            success: false,
+            message: "check inserted fields",
+            data: emailValidation
+          });
+          return;
+        }
         userService.forgotPassword(user, (error, data) => {
           if (error) {
             logger.error("email id is not exist");
@@ -119,5 +128,4 @@ class UserDataController {
       }
     };
 }
-
 module.exports = new UserDataController();

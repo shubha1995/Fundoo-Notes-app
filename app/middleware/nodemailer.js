@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const auth = require("../middleware/authenticate");
 
 require("dotenv").config();
+
 exports.sendEmail = (data) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -32,7 +33,6 @@ exports.sendEmail = (data) => {
     } else {
       const data = {
         link: process.env.CLIENT_URL + "/resetpassword/" + token,
-        // console.log("email send nodemailer", info.response);
         response: info.response
       };
       return data;
