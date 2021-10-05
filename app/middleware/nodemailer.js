@@ -18,7 +18,7 @@ exports.sendEmail = (data) => {
 
   const token = auth.generateToken(data);
   const mailOptions = {
-    from: process.env.Email,
+    from: process.env.EMAIL,
     to: data.email,
     subject: "Reset password Link",
     html: `<h2>please click on this link to change the password</h2>
@@ -28,7 +28,6 @@ exports.sendEmail = (data) => {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.log(err);
       return null;
     } else {
       const data = {

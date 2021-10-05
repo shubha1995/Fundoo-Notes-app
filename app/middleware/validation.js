@@ -18,4 +18,11 @@ const authUserLogin = Joi.object({
 const authUserforgot = Joi.object({
   email: Joi.string().email().required()
 });
-module.exports = { authUserRegister, authUserLogin, authUserforgot };
+
+const validateReset = Joi.object({
+  token: Joi.string().required(),
+  // eslint-disable-next-line prefer-regex-literals
+  password: Joi.string().required().pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})"))
+});
+
+module.exports = { authUserRegister, authUserLogin, authUserforgot, validateReset };

@@ -7,5 +7,14 @@ exports.generateToken = (data) => {
     lastName: data.lastName,
     email: data.email
   };
-  return jwt.sign(dataForToken, process.env.TOKEN_KEY, { expiresIn: "1H" });
+  return jwt.sign({ dataForToken }, process.env.TOKEN_KEY);
+};
+
+exports.getEmailFromToken = (token) => {
+  const data = jwt.verify(token, process.env.TOKEN_KEY);
+  if (data) {
+    return data;
+  } else {
+    return "couldnt verify";
+  }
 };

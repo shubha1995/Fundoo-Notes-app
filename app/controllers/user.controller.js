@@ -1,5 +1,5 @@
 const userService = require("../service/user.service");
-const { authUserRegister, authUserLogin, authUserforgot } = require("../middleware/validation");
+const { authUserRegister, authUserLogin, authUserforgot, validateReset } = require("../middleware/validation");
 const { logger } = require("../../logger/logger");
 
 class UserDataController {
@@ -127,5 +127,40 @@ class UserDataController {
         });
       }
     };
+
+    resetPassword = (req, res) => {
+      const userData = {
+        token: req.body.token,
+        password: req.body.password
+      };
+
+      const resetVlaidation = validateReset.validate(userData);
+      if (resetVlaidation.error) {
+        logger.error("Invalid password");
+        res.status(422).send({
+          success: false,
+          message: "Invalid password"
+        });
+        return;
+      }
+
+      userService.resetPassword(userData, (error, userData) => {
+        if (error) {
+          console.log(error);
+          logger.error(error);
+          return res.status(400).send({
+            message: error,
+            success: false
+          });
+        } else {
+          logger.info("Password reset succesfully");
+          return res.status(200).json({
+            success: true,
+            message: "Password reset succesfully",
+            data: userData
+          });
+        }
+      });
+    }
 }
 module.exports = new UserDataController();

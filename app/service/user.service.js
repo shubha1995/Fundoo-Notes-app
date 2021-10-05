@@ -44,6 +44,28 @@ class UserService {
         }
       });
     };
+
+    resetPassword = (userData, callback) => {
+      auth.getEmailFromToken(userData.token, (error, data) => {
+        if (error) {
+          logger.error(error);
+          return callback(error, null);
+        } else {
+          const inputData = {
+            email: data.dataForToken.email,
+            password: userData.password
+          };
+          userModel.resetPassword(inputData, (error, data) => {
+            if (error) {
+              logger.error(error);
+              return callback(error, null);
+            } else {
+              return callback(null, data);
+            }
+          });
+        }
+      });
+    }
 }
 
 module.exports = new UserService();
