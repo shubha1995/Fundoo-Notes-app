@@ -10,11 +10,13 @@ exports.generateToken = (data) => {
   return jwt.sign({ dataForToken }, process.env.TOKEN_KEY);
 };
 
-exports.getEmailFromToken = (token) => {
+exports.getEmailFromToken = (token, callback) => {
+  console.log("inside auth");
   const data = jwt.verify(token, process.env.TOKEN_KEY);
   if (data) {
-    return data;
+    return callback(null, data);
   } else {
-    return "couldnt verify";
+    // eslint-disable-next-line node/no-callback-literal
+    return callback("couldnt verify", null);
   }
 };
