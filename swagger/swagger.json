@@ -75,7 +75,7 @@
             }
         },
         "/forgotpassword": {
-            "put": {
+            "post": {
                 "tags": ["forgotPassword"],
                 "description": "Send password link",
                 "parameters": [
@@ -85,6 +85,32 @@
                         "description": "Sent password resent link",
                         "schema": {
                             "$ref": "#/definitions/forgotpassword"
+                        }
+                    }
+                ],
+
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/resetpassword": {
+            "put": {
+                "tags": ["resetpassword"],
+                "description": "Reset Password",
+                "parameters": [
+                    {
+                        "name": "resetpassword",
+                        "in": "body",
+                        "description": "Reset password",
+                        "schema": {
+                            "$ref": "#/definitions/resetpassword"
                         }
                     }
                 ],
@@ -143,6 +169,17 @@
                 }
             }
 
+        },
+        "resetpassword": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
         }
     }
 }
