@@ -4,44 +4,38 @@
             "firstName":"Neha",
             "lastName":"Roy",
             "email":"neha@gmail.com",
-            "password":"Neha@5487",
-            "confirmPassword": "Neha@5487"
+            "password":"Neha@5487"
         },
         "detailsWithEmptyFirstName":{
             "firstName":"",
             "lastName":"Nath", 
             "email":"sankar@gmail.com",
-            "password":"Shubha@123",
-            "confirmPassword": "Shubha@123"
+            "password":"Shubha@123"
         },
         "detailsWithEmptyLastName":{
             "firstName":"Sankar",
             "lastName":"",
             "email":"sankar@gmail.com",
-            "password":"Sankar@123",
-            "confirmPassword": "Sankar@123"
+            "password":"Sankar@123"
         },
         "detailsWithInvalidemail":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahulgmail.com",
-            "password":"Rahul@123",
-            "confirmPassword": "Rahul@123"
+            "password":"Rahul@123"
             
         },
         "detailsWithWeakPassword":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahul@gmail",
-            "password":"Rahul123",
-            "confirmPassword": "Rahul123"
+            "password":"Rahul123"
         },
         "detailsWithWeakconfirmPassword":{
             "firstName":"Rahul",
             "lastName":"Das",
             "email":"rahul@gmail",
-            "password":"Rahul123",
-            "confirmPassword": "Rahul123"
+            "password":"Rahul123"
         },
         "login": {
             "email": "chandan@gmail.com",

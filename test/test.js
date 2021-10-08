@@ -78,20 +78,6 @@ describe("User Registration ", () => {
         done();
       });
   });
-  it("givenWeakconfirmPassword_shouldReturnStatus400", (done) => {
-    const userDetails = user.user.detailsWithWeakconfirmPassword;
-    chai.request(server)
-      .post("/register")
-      .send(userDetails)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        res.should.have.status(400);
-        res.body.should.have.property("success").eql(false);
-        done();
-      });
-  });
 });
 
 describe("Login", () => {
