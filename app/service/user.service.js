@@ -24,7 +24,7 @@ class UserService {
         } else {
           const result = bcrypt.compareSync(loginData.password, data.password);
           if (result) {
-            const token = auth.generateToken(data);
+            const token = auth.jwtTokenGenerate(data);
             logger.info("Valid Password");
             return authenticateUser(null, token);
           } else {
@@ -45,27 +45,15 @@ class UserService {
       });
     };
 
-    resetPassword = (userData, callback) => {
-      auth.getEmailFromToken(userData.token, (error, data) => {
-        if (error) {
-          logger.error(error);
-          return callback(error, null);
+    resetPassword = (resetInfo, callback) => {
+      userModel.resetPassword(resetInfo, (error, data) => {
+        if (data) {
+          return callback(null, data);
         } else {
-          const inputData = {
-            email: data.dataForToken.email,
-            password: userData.password
-          };
-          userModel.resetPassword(inputData, (error, data) => {
-            if (error) {
-              logger.error(error);
-              return callback(error, null);
-            } else {
-              return callback(null, data);
-            }
-          });
+          return callback(error, null);
         }
       });
-    }
+    };
 }
 
 module.exports = new UserService();

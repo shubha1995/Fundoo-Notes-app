@@ -5,9 +5,7 @@ const authUserRegister = Joi.object({
   lastName: Joi.string().required(),
   email: Joi.string().email().required(),
   // eslint-disable-next-line prefer-regex-literals
-  password: Joi.string().required().pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})")),
-  // eslint-disable-next-line prefer-regex-literals
-  confirmPassword: Joi.string().required().pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})"))
+  password: Joi.string().required().pattern(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})"))
 });
 
 const authUserLogin = Joi.object({

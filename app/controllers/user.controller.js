@@ -1,5 +1,5 @@
 const userService = require("../service/user.service");
-const { authUserRegister, authUserLogin, authUserforgot, validateReset } = require("../middleware/validation");
+const { authUserRegister, authUserLogin, authUserforgot } = require("../middleware/validation");
 const { logger } = require("../../logger/logger");
 
 class UserDataController {
@@ -9,8 +9,7 @@ class UserDataController {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
-          password: req.body.password,
-          confirmPassword: req.body.confirmPassword
+          password: req.body.password
         };
 
         const registerValidation = authUserRegister.validate(userData);
@@ -130,43 +129,37 @@ class UserDataController {
 
     resetPassword = (req, res) => {
       try {
-        const userData = {
-          token: req.body.token,
-          password: req.body.password
-        };
-        const resetVlaidation = validateReset.validate(userData);
-        if (resetVlaidation.error) {
-          logger.error("Invalid password");
-          res.status(422).send({
-            success: false,
-            message: "Invalid password"
-          });
-          return;
-        }
+        // const {id} = req.params;
+        const header = req.headers.authorization;
 
-        userService.resetPassword(userData, (error, userData) => {
-          if (error) {
-            logger.error(error);
-            return res.status(400).send({
-              message: error,
-              success: false
-            });
-          } else {
-            logger.info("Password reset succesfully");
+        const myArr = header.split(" ");
+        const token = myArr[1];
+        const resetInfo = {
+          token: token,
+          newPassword: req.body.password
+        };
+        userService.resetPassword(resetInfo, (error, data) => {
+          if (data) {
+            logger.info("Password reset");
             return res.status(200).json({
               success: true,
-              message: "Password reset succesfully"
+              message: "Password reset"
+            });
+          } else {
+            logger.error(error);
+            return res.status(403).json({
+              success: false,
+              message: error
             });
           }
         });
       } catch (error) {
-        logger.error("Internal server error");
-        return res.status(500).send({
+        return res.status(500).json({
           success: false,
-          message: "Internal server error",
-          data: null
+          data: null,
+          message: "server-error"
         });
       }
-    }
+    };
 }
 module.exports = new UserDataController();

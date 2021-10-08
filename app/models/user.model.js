@@ -1,6 +1,5 @@
-// import mongoose
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const auth = require("../middleware/authenticate");
 const { logger } = require("../../logger/logger");
 
 // create schema
@@ -22,23 +21,6 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  confirmPassword: {
-    type: String,
-    required: true
-  }
-});
-
-userSchema.pre("save", async function (next) {
-  try {
-    // generate a salt
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(this.password, salt);
-    this.password = hashedPassword;
-    this.confirmPassword = hashedPassword;
-    next();
-  } catch (error) {
-    next(error);
   }
 });
 
@@ -52,20 +34,26 @@ class UserModel {
           firstName: userDetails.firstName,
           lastName: userDetails.lastName,
           email: userDetails.email,
-          password: userDetails.password,
-          confirmPassword: userDetails.confirmPassword
+          password: userDetails.password
         }
       );
-      newUser.save((error, data) => {
-        if (error) {
-          logger.error("Find error in model");
-          saveUserData(error, null);
+      auth.hashing(newUser.password, (err, hashpassword) => {
+        if (err) {
+          throw err;
         } else {
-          logger.info("User suucesfully registered");
-          saveUserData(null, data);
+          newUser.password = hashpassword;
+          newUser.save((error, data) => {
+            if (error) {
+              logger.error("Find error in model");
+              saveUserData(error, null);
+            } else {
+              logger.info("User suucesfully registered");
+              saveUserData(null, data);
+            }
+          });
         }
       });
-    }
+    };
 
     loginUser = (loginData, authenticateUser) => {
       Userdb.findOne({ email: loginData.email }, (error, data) => {
@@ -101,18 +89,33 @@ class UserModel {
       }
     };
 
-    resetPassword = async (userData, callback) => {
-      const hashPass = bcrypt.hashSync(userData.password, 10);
-      const data = await Userdb.findOne({ email: userData.email });
-      Userdb.findByIdAndUpdate(data.id, { firstName: data.firstName, lastName: data.lastName, password: hashPass, confirmPassword: hashPass }, { new: true }, (error, data) => {
-        if (error) {
-          logger.error(error);
-          return callback(error, null);
+    resetPassword = (resetInfo, callback) => {
+      // Password Hashed
+      auth.hashing(resetInfo.newPassword, (err, hashedPassword) => {
+        if (err) {
+          throw err;
         } else {
-          return callback(null, data);
+          auth.decodeToken(resetInfo.token, (error, data) => {
+            if (data) {
+              Userdb.findByIdAndUpdate(
+                data.id,
+                { password: hashedPassword },
+                (error, data) => {
+                  if (data) {
+                    logger.info("Password Updated successfully");
+                    return callback(null, data);
+                  } else {
+                    logger.info(error);
+                    return callback(error, null);
+                  }
+                }
+              );
+            } else {
+              return callback(error, null);
+            }
+          });
         }
       });
-    };
+    }
 }
-
 module.exports = new UserModel();

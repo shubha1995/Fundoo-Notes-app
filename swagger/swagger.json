@@ -101,7 +101,7 @@
             }
         },
         "/resetpassword": {
-            "put": {
+            "post": {
                 "tags": ["resetpassword"],
                 "description": "Reset Password",
                 "parameters": [
@@ -142,9 +142,6 @@
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                },
-                "confirmPassword": {
                     "type": "string"
                 }
             }

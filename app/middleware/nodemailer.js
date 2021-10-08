@@ -1,22 +1,19 @@
 const nodemailer = require("nodemailer");
 const auth = require("../middleware/authenticate");
+const { logger } = require("../../logger/logger");
 
 require("dotenv").config();
 
 exports.sendEmail = (data) => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    requireTLS: true,
     service: "gmail",
     auth: {
       user: process.env.EMAIL,
       pass: process.env.PASS
     }
   });
-
-  const token = auth.generateToken(data);
+  logger.info("Jwt Token Generate");
+  const token = auth.jwtTokenGenerate(data);
   const mailOptions = {
     from: process.env.EMAIL,
     to: data.email,
