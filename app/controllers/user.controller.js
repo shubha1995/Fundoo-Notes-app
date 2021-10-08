@@ -3,6 +3,12 @@ const { authUserRegister, authUserLogin, authUserforgot } = require("../middlewa
 const { logger } = require("../../logger/logger");
 
 class UserDataController {
+  /**
+     * @description : Function created to add user into database
+     * @param {*} req
+     * @param {*} res
+     * @returns
+     */
     create = (req, res) => {
       try {
         const userData = {
@@ -47,6 +53,11 @@ class UserDataController {
         });
       }
     }
+    /**
+     * @description: Function created to verify user login info
+     * @param {*} req
+     * @param {*} res
+     */
 
     login = (req, res) => {
       try {
@@ -64,7 +75,7 @@ class UserDataController {
           });
           return;
         }
-
+        // call service layer
         userService.loginUser(loginData, (error, data) => {
           if (error) {
             return res.status(400).send({
@@ -87,6 +98,12 @@ class UserDataController {
       }
     }
 
+    /**
+     * @description:Calls service layer to send reset password link
+     * @param {*} req
+     * @param {*} res
+     * @returns
+     */
     forgotPassword = (req, res) => {
       try {
         const user = {
@@ -127,6 +144,12 @@ class UserDataController {
       }
     };
 
+    /**
+     * @description:calls service layer to reset password
+     * @param {*} req
+     * @param {*} res
+     * @returns
+     */
     resetPassword = (req, res) => {
       try {
         // const {id} = req.params;

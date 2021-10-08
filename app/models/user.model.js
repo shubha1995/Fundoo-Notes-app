@@ -24,10 +24,15 @@ const userSchema = mongoose.Schema({
   }
 });
 
-// create model
+// Save the database in a constant so that we can access it
 const Userdb = mongoose.model("user", userSchema);
 
 class UserModel {
+  /**
+     * @description: Adds data to the database
+     * @param {*} newUser
+     * @param {*} callback
+     */
     createDetails = (userDetails, saveUserData) => {
       const newUser = new Userdb(
         {
@@ -55,6 +60,11 @@ class UserModel {
       });
     };
 
+    /**
+     * @description: Authenticates user information from the database
+     * @param {*} credentials
+     * @param {*} callback
+     */
     loginUser = (loginData, authenticateUser) => {
       Userdb.findOne({ email: loginData.email }, (error, data) => {
         if (error) {
@@ -72,6 +82,11 @@ class UserModel {
       });
     };
 
+    /**
+     * @description:checks if emailId is present inside database
+     * @param {*} email
+     * @param {*} callback
+     */
     forgotPassword = (userDetails, callback) => {
       try {
         Userdb.findOne({ email: userDetails.email }, (err, data) => {
@@ -89,6 +104,11 @@ class UserModel {
       }
     };
 
+    /**
+     * @description:looks for data by id and updates password
+     * @param {*} credentials
+     * @param {*} callback
+     */
     resetPassword = (resetInfo, callback) => {
       // Password Hashed
       auth.hashing(resetInfo.newPassword, (err, hashedPassword) => {

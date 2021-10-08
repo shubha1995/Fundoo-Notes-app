@@ -5,6 +5,11 @@ const { logger } = require("../../logger/logger");
 const mailUser = require("../middleware/nodemailer");
 
 class UserService {
+  /**
+     * @description: Function sends new user info to model
+     * @param {*} newUser
+     * @param {*} callback
+     */
     registerUser = (userData, saveUserData) => {
       userModel.createDetails(userData, (err, data) => {
         if (err) {
@@ -15,6 +20,11 @@ class UserService {
       });
     };
 
+    /**
+     * @description: Function gets data from model, whether it is valid or not.
+     * @param {*} credentials
+     * @param {*} callback
+     */
     loginUser = (loginData, authenticateUser) => {
       // call model layer
       userModel.loginUser(loginData, (err, data) => {
@@ -35,6 +45,11 @@ class UserService {
       });
     }
 
+    /**
+     * @description:calls nodemailer if emailid exists in database
+     * @param {*} email
+     * @param {*} callback
+     */
     forgotPassword = (user, callback) => {
       userModel.forgotPassword(user, (err, data) => {
         if (err || !data) {
@@ -45,6 +60,11 @@ class UserService {
       });
     };
 
+    /**
+     * @description:verifies token, if valid sends new password to model layer
+     * @param {*} req
+     * @param {*} callback
+     */
     resetPassword = (resetInfo, callback) => {
       userModel.resetPassword(resetInfo, (error, data) => {
         if (data) {
