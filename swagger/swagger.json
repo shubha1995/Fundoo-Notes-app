@@ -106,6 +106,14 @@
                 "description": "Saves new password in DB",
                 "parameters": [
                     {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token for validation",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "resetpassword",
                         "in": "body",
                         "description": "Reset password",
@@ -170,12 +178,12 @@
         "resetpassword": {
             "type": "object",
             "properties": {
-                "token": {
-                    "type": "string"
-                },
                 "password": {
                     "type": "string"
                 }
+            },
+            "example": {
+                "password": "Password@1234"
             }
         }
     }
