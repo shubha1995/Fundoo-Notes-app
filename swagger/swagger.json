@@ -103,16 +103,8 @@
         "/resetpassword": {
             "post": {
                 "tags": ["resetpassword"],
-                "description": "Saves new password in DB",
+                "description": "Reset Password",
                 "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "token for validation",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
                     {
                         "name": "resetpassword",
                         "in": "body",
@@ -134,6 +126,52 @@
                 }
             }
         }
+        ,
+        "/createnotes": {
+            "post": {
+                "tags": [
+                    "Create Notes"
+                ],
+                "description": "Create a  note !!",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Token for vaidation",
+                        "schema": {
+                            "type": "string",
+                            "required": true
+                        }
+                    },
+                    {
+                        "name": "create note",
+                        "in": "body",
+                        "description": "Note's body",
+                        "schema": {
+                            "$ref": "#/definitions/notes"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "schema": {
+                    "$ref": "#/definitions/notes"
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create note succesfully !!"
+                    },
+                    "400": {
+                        "description": "Please enter Valid Token"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+
     },
 
     "definitions": {
@@ -178,13 +216,28 @@
         "resetpassword": {
             "type": "object",
             "properties": {
+                "token": {
+                    "type": "string"
+                },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "notes": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
                     "type": "string"
                 }
             },
             "example": {
-                "password": "Password@1234"
+                "title": "Tittle",
+                "description": "description"
             }
         }
     }
-}
+}   
