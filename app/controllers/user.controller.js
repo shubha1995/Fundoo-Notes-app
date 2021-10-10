@@ -127,7 +127,7 @@ class UserDataController {
             });
           } else {
             logger.info("email send Successfully");
-            res.status(201).json({
+            res.status(200).json({
               success: true,
               data: data,
               message: "email send successfully"

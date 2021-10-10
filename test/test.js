@@ -146,7 +146,7 @@ describe("forgotPassword", () => {
   it("givenValidData_whenProper_souldAbleToSendEmailToUserEmail", (done) => {
     const forgotPasswordDetails = user.user.userForgotPassword;
     chai.request(server)
-      .post("/forgotPassword")
+      .post("/forgotpassword")
       .send(forgotPasswordDetails)
       .end((error, res) => {
         if (error) {
@@ -166,6 +166,61 @@ describe("forgotPassword", () => {
           return done("email-id is empty or unable to fetch details");
         }
         return done();
+      });
+  });
+});
+
+describe("resetpassword for positive and negative ", () => {
+  it.only("GivenResetPasswordDetails_WhenProper_Password_Successfully_Reset", (done) => {
+    const resetPasswordDetails = user.reset.resetPassword;
+    const token = user.reset.tokenOne;
+    chai
+      .request(server)
+      .post("/resetpassword")
+      .set({ authorization: token })
+      .send(resetPasswordDetails)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        res.should.have.status(200);
+        res.body.should.have.property("success").eql(true);
+        res.body.should.have
+          .property("message")
+          .eql("Password reset");
+        done();
+      });
+  });
+  it("GivenResetPasswordDetails_When_Token_Has_Expiered_Or_Wrong", (done) => {
+    const resetPasswordDetails = user.reset.resetPassword;
+    const token = user.reset.tokenTwoInvaild;
+    chai
+      .request(server)
+      .post("/resetpassword")
+      .set({ authorization: token })
+      .send(resetPasswordDetails)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        res.should.have.status(401);
+        done();
+      });
+  });
+  it("GivenResetPasswordDetails_When_Token_ArrayOfIndex_Wrong", (done) => {
+    const resetPasswordDetails = user.reset.resetPassword;
+    const token = user.reset.tokenInvaild;
+    chai
+      .request(server)
+      .post("/resetpassword")
+      .set({ authorization: token })
+      .send(resetPasswordDetails)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        res.should.have.status(401);
+        done();
       });
   });
 });

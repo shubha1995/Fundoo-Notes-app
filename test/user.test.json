@@ -59,5 +59,15 @@
         "userForgotPasswordisInvalid": {
             "email": "ssbhaumikdmr@gmail"
         }
+    },
+    "reset":{
+        "resetPassword":{
+            "password": "Password@1234567890"
+        },
+        "tokenOne":
+            "b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNzYW5rYXJiaGF1bWlrQGdtYWlsLmNvbSIsImlkIjoiNjE1ZmYxODc4YzlmZTYxNWY4YTM1ZWQ4IiwiaWF0IjoxNjMzODg1OTI1LCJleHAiOjE2MzM4OTMxMjV9.6i4icjZsgMYZmH2oWtmkoLf9lL207tbsDivzsTYxfoo",
+        "tokenTwoInvaild": "B yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbmRlZXAudGVzdDE5OTZAZ21haWwuY29tIiwiaWQiOiI2MTYyODBmZTcwNDFhNTFjMzMxMDI0ODIiLCJpYXQiOjE2MzM4NjY2MjgsImV4cCI6MTYzMzg3MzgyOH0.h1Z6aGUpjImdPcoQBK_--MAIl5NMCUmu_14lmXxY6to",
+        "tokenInvaild": "BeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbmRlZXAudGVzdDE5OTZAZ21haWwuY29tIiwiaWQiOiI2MTYyODBmZTcwNDFhNTFjMzMxMDI0ODIiLCJpYXQiOjE2MzM4NjY2MjgsImV4cCI6MTYzMzg3MzgyOH0.h1Z6aGUpjImdPcoQBK_--MAIl5NMCUmu_14lmXxY6to"
+
     }
 }

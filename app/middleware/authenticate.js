@@ -29,16 +29,6 @@ class Helper {
     return jwt.sign(dataForToken, process.env.TOKEN_KEY, { expiresIn: "2H" });
   };
 
-  // decodeToken = (token, callback) => {
-  //   const decode = jwt.verify(token, process.env.TOKEN_KEY);
-  //   if (decode) {
-  //     return callback(null, decode);
-  //   } else {
-  //     // eslint-disable-next-line node/no-callback-literal
-  //     return callback("Cannot Decode token", null);
-  //   }
-  // };
-
   verifyToken = (req, res, next) => {
     try {
       const header = req.headers.authorization;
