@@ -15,6 +15,12 @@ class Helper {
     });
   };
 
+  /**
+     * Generate Token
+     * @param {*} data
+     * @param {*} callback
+     */
+
   jwtTokenGenerate = (data) => {
     const dataForToken = {
       email: data.email,
@@ -23,29 +29,29 @@ class Helper {
     return jwt.sign(dataForToken, process.env.TOKEN_KEY, { expiresIn: "2H" });
   };
 
-  decodeToken = (token, callback) => {
-    const decode = jwt.verify(token, process.env.TOKEN_KEY);
-    if (decode) {
-      return callback(null, decode);
-    } else {
-      // eslint-disable-next-line node/no-callback-literal
-      return callback("Cannot Decode token", null);
-    }
-  };
+  // decodeToken = (token, callback) => {
+  //   const decode = jwt.verify(token, process.env.TOKEN_KEY);
+  //   if (decode) {
+  //     return callback(null, decode);
+  //   } else {
+  //     // eslint-disable-next-line node/no-callback-literal
+  //     return callback("Cannot Decode token", null);
+  //   }
+  // };
 
   verifyToken = (req, res, next) => {
     try {
       const header = req.headers.authorization;
       const myArr = header.split(" ");
       const token = myArr[1];
-      this.decodeToken(token, (error, decode) => {
-        if (decode) {
-          logger.info("token verified");
-          next();
-        } else {
-          logger.info("token verify error" + error);
-        }
-      });
+      const decode = jwt.verify(token, process.env.TOKEN_KEY);
+      if (decode) {
+        logger.info("token verified");
+        req.userData = decode;
+        next();
+      } else {
+        logger.info("token verify error");
+      }
     } catch (error) {
       res.status(401).send({
         error: "Your token has expiered"

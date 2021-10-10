@@ -150,39 +150,35 @@ class UserDataController {
      * @param {*} res
      * @returns
      */
-    resetPassword = (req, res) => {
-      try {
-        // const {id} = req.params;
-        const header = req.headers.authorization;
-
-        const myArr = header.split(" ");
-        const token = myArr[1];
-        const resetInfo = {
-          token: token,
-          newPassword: req.body.password
-        };
-        userService.resetPassword(resetInfo, (error, data) => {
-          if (data) {
-            logger.info("Password reset");
-            return res.status(200).json({
-              success: true,
-              message: "Password reset"
-            });
-          } else {
-            logger.error(error);
-            return res.status(403).json({
-              success: false,
-              message: error
-            });
-          }
-        });
-      } catch (error) {
-        return res.status(500).json({
-          success: false,
-          data: null,
-          message: "server-error"
-        });
-      }
-    };
+     resetPassword = (req, res) => {
+       try {
+         const resetInfo = {
+           email: req.userData.email,
+           id: req.userData.id,
+           newPassword: req.body.password
+         };
+         userService.resetPassword(resetInfo, (error, data) => {
+           if (data) {
+             logger.info("Password reset");
+             return res.status(200).json({
+               success: true,
+               message: "Password reset"
+             });
+           } else {
+             logger.error(error);
+             return res.status(401).json({
+               success: false,
+               message: error
+             });
+           }
+         });
+       } catch (error) {
+         return res.status(500).json({
+           success: false,
+           data: null,
+           message: "server-error"
+         });
+       }
+     }
 }
 module.exports = new UserDataController();

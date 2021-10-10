@@ -110,27 +110,17 @@ class UserModel {
      * @param {*} callback
      */
     resetPassword = (resetInfo, callback) => {
-      // Password Hashed
+      // Hashed Password
       auth.hashing(resetInfo.newPassword, (err, hashedPassword) => {
         if (err) {
           throw err;
         } else {
-          auth.decodeToken(resetInfo.token, (error, data) => {
+          Userdb.findByIdAndUpdate(resetInfo.id, { password: hashedPassword }, (error, data) => {
             if (data) {
-              Userdb.findByIdAndUpdate(
-                data.id,
-                { password: hashedPassword },
-                (error, data) => {
-                  if (data) {
-                    logger.info("Password Updated successfully");
-                    return callback(null, data);
-                  } else {
-                    logger.info(error);
-                    return callback(error, null);
-                  }
-                }
-              );
+              logger.info("Password Updated successfully");
+              return callback(null, data);
             } else {
+              logger.info(error);
               return callback(error, null);
             }
           });
