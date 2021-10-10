@@ -52,6 +52,12 @@
         "loginWithWrongEmail": {
             "email": "chandangmail.com",
             "password": "Chandan@5487"
+        },
+        "userForgotPassword": {
+            "email": "ssankarbhaumik@gmail.com"
+        },
+        "userForgotPasswordisInvalid": {
+            "email": "ssbhaumikdmr@gmail"
         }
     }
 }

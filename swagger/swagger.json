@@ -103,7 +103,7 @@
         "/resetpassword": {
             "post": {
                 "tags": ["resetpassword"],
-                "description": "Reset Password",
+                "description": "Saves new password in DB",
                 "parameters": [
                     {
                         "name": "resetpassword",

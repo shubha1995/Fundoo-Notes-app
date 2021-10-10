@@ -141,3 +141,31 @@ describe("Login", () => {
       });
   });
 });
+
+describe("forgotPassword", () => {
+  it("givenValidData_whenProper_souldAbleToSendEmailToUserEmail", (done) => {
+    const forgotPasswordDetails = user.user.userForgotPassword;
+    chai.request(server)
+      .post("/forgotPassword")
+      .send(forgotPasswordDetails)
+      .end((error, res) => {
+        if (error) {
+          return done("Invalid details received instead of valid");
+        }
+        res.should.have.status(200);
+        return done();
+      });
+  });
+  it("givenInValidEmail_shouldNotAbleToSendEmailToUserEmail", (done) => {
+    const forgotPasswordDetails = user.user.userForgotPasswordisInvalid;
+    chai.request(server)
+      .post("/forgotpassword")
+      .send(forgotPasswordDetails)
+      .end((error, res) => {
+        if (error) {
+          return done("email-id is empty or unable to fetch details");
+        }
+        return done();
+      });
+  });
+});
