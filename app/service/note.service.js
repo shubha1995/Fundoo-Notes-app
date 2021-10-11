@@ -12,16 +12,6 @@ class Service {
       });
     }
 
-    getNote = (callback) => {
-      noteModel.getNote((err, data) => {
-        if (err) {
-          return callback(err, null);
-        } else {
-          return callback(null, data);
-        }
-      });
-    }
-
     getNote = (id, callback) => {
       noteModel.getNote(id, (err, data) => {
         if (err) {
@@ -30,6 +20,20 @@ class Service {
           return callback(null, data);
         }
       });
+    }
+
+    getNoteById = async (id, callback) => {
+      try {
+        await noteModel.getNoteById(id, (err, data) => {
+          if (err) {
+            return callback(err, null);
+          } else {
+            return callback(null, data);
+          }
+        });
+      } catch (err) {
+        return err;
+      }
     }
 }
 module.exports = new Service();

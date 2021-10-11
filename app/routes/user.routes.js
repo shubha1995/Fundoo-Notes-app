@@ -9,4 +9,5 @@ module.exports = (app) => {
   app.post("/resetpassword", auth.verifyToken, userController.resetPassword);
   app.post("/createnotes", auth.verifyToken, noteController.createNote);
   app.get("/getnotes", auth.verifyToken, noteController.getNote);
+  app.get("/getnotes/:id", auth.verifyToken, noteController.getNoteById);
 };
