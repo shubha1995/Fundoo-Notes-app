@@ -32,5 +32,25 @@ class Model {
         }
       });
     }
+
+    getNote = (callback) => {
+      NoteRegister.find({}, (err, data) => {
+        if (err) {
+          return callback(err, null);
+        } else {
+          return callback(null, data);
+        }
+      });
+    }
+
+    getNote = (id, callback) => {
+      NoteRegister.find({ userId: id.id }, (err, data) => {
+        if (err) {
+          return callback(err, null);
+        } else {
+          return callback(null, data);
+        }
+      });
+    }
 }
 module.exports = new Model();

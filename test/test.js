@@ -171,7 +171,7 @@ describe("forgotPassword", () => {
 });
 
 describe("resetpassword for positive and negative ", () => {
-  it.only("GivenResetPasswordDetails_WhenProper_Password_Successfully_Reset", (done) => {
+  it("GivenResetPasswordDetails_WhenProper_Password_Successfully_Reset", (done) => {
     const resetPasswordDetails = user.reset.resetPassword;
     const token = user.reset.tokenOne;
     chai

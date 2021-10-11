@@ -18,9 +18,9 @@ class Note {
               success: false
             });
           } else {
-            logger.info("Successfully inserted note");
+            logger.info("note inserted successfully");
             return res.status(201).send({
-              message: "Successfully inserted note",
+              message: "note inserted successfully",
               success: true,
               data: data
             });
@@ -31,6 +31,33 @@ class Note {
         return res.status(500).json({
           message: "Internal server error",
           success: false
+        });
+      }
+    }
+
+    getNote = (req, res) => {
+      try {
+        const id = { id: req.userData.id };
+        noteService.getNote((id), (err, data) => {
+          if (err) {
+            logger.error("Failed to get all notes");
+            return res.status(400).json({
+              message: "failed to get note",
+              success: false
+            });
+          } else {
+            logger.info("All notes retrived");
+            return res.status(201).json({
+              message: "Notes retrived successfully",
+              success: true,
+              data: data
+            });
+          }
+        });
+      } catch {
+        logger.error("Error occured while retrieving notes");
+        return res.status(500).json({
+          message: "Internal Error"
         });
       }
     }

@@ -8,4 +8,5 @@ module.exports = (app) => {
   app.post("/forgotpassword", userController.forgotPassword);
   app.post("/resetpassword", auth.verifyToken, userController.resetPassword);
   app.post("/createnotes", auth.verifyToken, noteController.createNote);
+  app.get("/getnotes", auth.verifyToken, noteController.getNote);
 };
