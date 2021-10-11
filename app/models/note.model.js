@@ -43,15 +43,9 @@ class Model {
       });
     }
 
-    getNoteById = async (id, callback) => {
+    getNoteById = async (id) => {
       try {
-        await NoteRegister.findOne({ id: id.noteId, userId: id.userId }, (err, data) => {
-          if (err) {
-            return callback(err, null);
-          } else {
-            return callback(null, data);
-          }
-        });
+        return await NoteRegister.find({ $and: [{ _id: id.noteId }, { userId: id.userId }] });
       } catch (err) {
         return err;
       }

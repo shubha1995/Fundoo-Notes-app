@@ -22,15 +22,9 @@ class Service {
       });
     }
 
-    getNoteById = async (id, callback) => {
+    getNoteById = async (id) => {
       try {
-        await noteModel.getNoteById(id, (err, data) => {
-          if (err) {
-            return callback(err, null);
-          } else {
-            return callback(null, data);
-          }
-        });
+        return await noteModel.getNoteById(id);
       } catch (err) {
         return err;
       }

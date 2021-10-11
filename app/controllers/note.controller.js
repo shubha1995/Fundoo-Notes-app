@@ -64,28 +64,25 @@ class Note {
 
     getNoteById = async (req, res) => {
       try {
-        const id = {
-          userId: req.userData.id,
-          noteId: req.params.id
-        };
-        await noteService.getNoteById(id, (err, data) => {
-          if (err) {
-            return res.status(404).json({
-              message: "Note not found",
-              success: false
-            });
-          } else {
-            return res.status(200).json({
-              message: "Note retieved succesfully",
-              success: true,
-              data: data
-            });
-          }
+        const id = { userId: req.userData.id, noteId: req.params.id };
+        const data = await noteService.getNoteById(id);
+        if (data.message) {
+          return res.status(404).json({
+            message: "Note not found",
+            success: false
+          });
+        }
+        return res.status(200).json({
+          message: "Note retrieved succesfully",
+          success: true,
+          data: data
+
         });
       } catch (err) {
-        return res.status(401).json({
-          error: err,
-          success: false
+        return res.status(500).json({
+          message: "Internal Error",
+          success: false,
+          data: err
         });
       }
     }
