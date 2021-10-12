@@ -1,5 +1,6 @@
 const noteService = require("../service/note.service");
 const { logger } = require("../../logger/logger");
+const { validateNote } = require("../middleware/validation");
 
 class Note {
     createNote = (req, res) => {
@@ -9,6 +10,15 @@ class Note {
           title: req.body.title,
           description: req.body.description
         };
+        const valid = validateNote.validate(note);
+        if (valid.error) {
+          logger.error("Invalid Note");
+          return res.status(400).send({
+            success: false,
+            message: "Please enter valid note"
+          });
+        }
+
         noteService.createNote(note, (error, data) => {
           if (error) {
             logger.error("failed to post note");
