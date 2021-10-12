@@ -1,6 +1,6 @@
 const noteService = require("../service/note.service");
 const { logger } = require("../../logger/logger");
-const { validateNote } = require("../middleware/validation");
+const { validateNote, getNoteValidation } = require("../middleware/validation");
 
 class Note {
     createNote = (req, res) => {
@@ -47,6 +47,13 @@ class Note {
     getNote = (req, res) => {
       try {
         const id = { id: req.userData.id };
+        const getNoteValid = getNoteValidation.validate(id);
+        if (getNoteValid.error) {
+          return res.status(400).send({
+            success: false,
+            message: "Wrong Input Validations"
+          });
+        }
         noteService.getNote((id), (err, data) => {
           if (err) {
             logger.error("Failed to get all notes");
