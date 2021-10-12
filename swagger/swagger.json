@@ -283,7 +283,34 @@
                 "500":{"description":"Internal server error"}
               }
             }
-          }
+          },
+          "/deletenotes/{id}":{
+            "delete":{
+              "tags":["Delete note"],
+              "description":"Delete notes",
+              "parameters":[
+                {"in":"header",
+                "name":"authorization",
+                "description":"Token for validation",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+              },
+              {
+                "in":"path",
+                "name":"id",
+                "description":"Id of note you want to update",
+                "schema":{"type":"string"}
+              }
+              ],"produces":["application/json"],
+              "responses":{
+                "200":{"description":"Note deleted successfully"},
+                "401":{"description":"Please enter valid token"},
+                "500":{"description":"Internal server error"}
+              }
+
+            }
     },
 
     "definitions": {
@@ -352,4 +379,5 @@
             }
         }
     }
+}
 }   
