@@ -250,7 +250,40 @@
                     }
                 }
             }
-        }
+        },
+        "/updatenotes/{id}":{
+            "put":{
+              "tags":["Update notes"],
+              "description":"Update note",
+              "parameters":[
+                {"in":"header",
+                "name":"authorization",
+                "description":"Token for validation",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+              },
+              {
+                "in":"path",
+                "name":"id",
+                "description":"Id of note you want to update",
+                "schema":{"type":"string"}
+              },
+              {
+                "in":"body",
+                "name":"Note",
+                "description":"Note body",
+                "schema":{"$ref":"#/definitions/notes"}
+              }
+              ],"produces":["application/json"],
+              "responses":{
+                "200":{"description":"Note updated successfully"},
+                "400":{"description":"Please enter valid token"},
+                "500":{"description":"Internal server error"}
+              }
+            }
+          }
     },
 
     "definitions": {
