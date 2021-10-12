@@ -2,10 +2,9 @@ const noteService = require("../service/note.service");
 const { logger } = require("../../logger/logger");
 
 class Note {
-    createNote =(req, res) => {
+    createNote = (req, res) => {
       try {
         const note = {
-
           userId: req.userData.id,
           title: req.body.title,
           description: req.body.description
@@ -116,6 +115,30 @@ class Note {
         return res.status(500).json({
           message: "Internal server error",
           success: false
+        });
+      }
+    }
+
+    deleteNoteById = async (req, res) => {
+      try {
+        const id = { userId: req.userData.id, noteId: req.params.id };
+        const data = await noteService.deleteNoteById(id);
+        if (data.message) {
+          return res.status(404).json({
+            message: "Note not found",
+            success: false
+          });
+        }
+        return res.status(200).json({
+          message: "Note Deleted succesfully",
+          success: true,
+          data: data
+        });
+      } catch (err) {
+        return res.status(500).json({
+          message: "Note not updated",
+          success: false,
+          data: err
         });
       }
     }

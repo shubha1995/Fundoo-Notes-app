@@ -41,5 +41,13 @@ class Service {
       }
       );
     }
+
+    deleteNoteById = async (id) => {
+      try {
+        return await noteModel.deleteNoteById(id);
+      } catch (err) {
+        return err;
+      }
+    }
 }
 module.exports = new Service();
