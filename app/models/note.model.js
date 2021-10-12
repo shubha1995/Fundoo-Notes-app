@@ -18,19 +18,16 @@ const noteSchema = mongoose.Schema({
 
 const NoteRegister = mongoose.model("NoteRegister", noteSchema);
 class Model {
-    createNote = (info, callback) => {
-      const note = new NoteRegister({
-        userId: info.userId,
-        title: info.title,
-        description: info.description
-      });
-      note.save((error, data) => {
-        if (error) {
-          logger.error(error);
-          return callback(error, null);
-        } else {
-          return callback(null, data);
-        }
+    createNote = (info) => {
+      return new Promise((resolve, reject) => {
+        const note = new NoteRegister({
+          userId: info.userId,
+          title: info.title,
+          description: info.description
+        });
+        note.save()
+          .then((data) => resolve(data))
+          .catch((err) => reject(err));
       });
     }
 

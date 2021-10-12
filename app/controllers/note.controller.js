@@ -19,22 +19,22 @@ class Note {
           });
         }
 
-        noteService.createNote(note, (error, data) => {
-          if (error) {
-            logger.error("failed to post note");
-            return res.status(400).json({
-              message: "failed to post note",
-              success: false
-            });
-          } else {
-            logger.info("note inserted successfully");
-            return res.status(201).send({
-              message: "note inserted successfully",
-              success: true,
-              data: data
-            });
-          }
-        });
+        noteService.createNote(note, resolve, reject);
+        function resolve (data) {
+          logger.info("note inserted successfullye");
+          return res.status(201).send({
+            message: "note inserted successfully",
+            success: true,
+            data: data
+          });
+        }
+        function reject () {
+          logger.error("Note is not created");
+          return res.status(400).json({
+            message: "Note is not created",
+            success: false
+          });
+        }
       } catch {
         logger.error("Internal server error");
         return res.status(500).json({
