@@ -23,5 +23,13 @@ class Service {
         return error;
       }
     }
+
+    deleteLabelById = async (id) => {
+      try {
+        return await labelModel.deleteLabelById(id);
+      } catch (err) {
+        return err;
+      }
+    }
 }
 module.exports = new Service();
