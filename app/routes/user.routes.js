@@ -15,4 +15,5 @@ module.exports = (app) => {
   app.delete("/deletenotes/:id", auth.verifyToken, noteController.deleteNoteById);
 
   app.post("/createlabel", auth.verifyToken, label.createLabel);
+  app.get("/getlabels", auth.verifyToken, label.getLabel);
 };
