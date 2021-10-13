@@ -33,5 +33,13 @@ class Model {
           .catch((error) => reject(error));
       });
     }
+
+    getLabelById = (id) => {
+      return new Promise((resolve, reject) => {
+        LabelRegister.findById(id).then((data) => {
+          resolve(data);
+        }).catch((err) => reject(err));
+      });
+    }
 }
 module.exports = new Model();

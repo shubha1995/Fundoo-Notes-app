@@ -16,4 +16,5 @@ module.exports = (app) => {
 
   app.post("/createlabel", auth.verifyToken, label.createLabel);
   app.get("/getlabels", auth.verifyToken, label.getLabel);
+  app.get("/getlabel/:id", auth.verifyToken, label.getLabelById);
 };

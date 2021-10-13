@@ -10,5 +10,10 @@ class Service {
       labelModel.getLabel(id).then((data) => { callback(data, null); })
         .catch((err) => { callback(null, err); });
     }
+
+    getLabelById = (id, callback) => {
+      labelModel.getLabelById(id).then((data) => { callback(data, null); })
+        .catch((err) => { callback(null, err); });
+    }
 }
 module.exports = new Service();
