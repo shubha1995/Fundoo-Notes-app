@@ -315,7 +315,36 @@
                 }
 
             }
-        }
+        },
+        "/createlabel":{
+            "post":{
+              "tags":["create label"],
+              "description":"Creates a new label",
+              "parameters":[
+                { 
+                  "in":"header",
+                "name":"authorization",
+                "description":"Token for validation",
+                "schema":{
+                  "type":"string",
+                  "required":true
+                }
+                },
+                {
+                  "in":"body",
+                  "name":"label",
+                  "description":"Label attached to note",
+                  "schema":{"$ref":"#/definitions/label"}
+                }
+              ],
+              "produces":["application/json"],
+              "responses":{
+                "201":{"description":"Label created successfully"},
+                "500":{"description":"Label Not created"},
+                "400":{"description":"Invalid Token"}
+              }
+            }  
+          }
     },
 
     "definitions": {
@@ -382,6 +411,14 @@
                 "title": "Tittle",
                 "description": "description"
             }
-        }
+        },
+        "label":{
+            "type":"object",
+            "properties":{
+              "labelName":{
+                "type":"string"
+              }
+            }
+          }
     }
 }
