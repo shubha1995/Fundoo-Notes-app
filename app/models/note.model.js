@@ -1,4 +1,3 @@
-const { logger } = require("../../logger/logger");
 const mongoose = require("mongoose");
 
 const noteSchema = mongoose.Schema({

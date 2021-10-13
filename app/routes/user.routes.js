@@ -1,6 +1,7 @@
 const userController = require("../controllers/user.controller.js");
 const auth = require("../middleware/authenticate");
 const noteController = require("../controllers/note.controller");
+const label = require("../controllers/label.controller");
 
 module.exports = (app) => {
   app.post("/register", userController.create);
@@ -12,4 +13,6 @@ module.exports = (app) => {
   app.get("/getnotesid/:id", auth.verifyToken, noteController.getNoteById);
   app.put("/updatenotes/:id", auth.verifyToken, noteController.updateNoteById);
   app.delete("/deletenotes/:id", auth.verifyToken, noteController.deleteNoteById);
+
+  app.post("/createlabel", auth.verifyToken, label.createLabel);
 };

@@ -50,4 +50,9 @@ const getNoteValidation = Joi.object({
   id: Joi.string().required()
 });
 
-module.exports = { authUserRegister, authUserLogin, authUserforgot, validateReset, resetSchema, validateNote, getNoteValidation };
+const validateLabel = Joi.object({
+  labelName: Joi.string()
+    .required()
+});
+
+module.exports = { authUserRegister, authUserLogin, authUserforgot, validateReset, resetSchema, validateNote, getNoteValidation, validateLabel };
