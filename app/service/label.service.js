@@ -15,5 +15,13 @@ class Service {
       labelModel.getLabelById(id).then((data) => { callback(data, null); })
         .catch((err) => { callback(null, err); });
     }
+
+    async updateLabel (label) {
+      try {
+        return await labelModel.updateLabel(label);
+      } catch (error) {
+        return error;
+      }
+    }
 }
 module.exports = new Service();
