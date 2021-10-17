@@ -7,7 +7,7 @@ class Label {
         const valid = validateLabel.validate(req.body);
         if (valid.error) {
           logger.error("Invalid label body");
-          return res.status(400).send({
+          return res.status(401).send({
             message: "Please enter valid label",
             success: false,
             error: valid.error
