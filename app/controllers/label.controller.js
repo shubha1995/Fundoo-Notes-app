@@ -146,5 +146,14 @@ class Label {
         });
       }
     }
+
+    addNoteId = async (id, res) => {
+      try {
+        await labelService.addNoteId(id);
+        return;
+      } catch (err) {
+        return err;
+      }
+    }
 }
 module.exports = new Label();

@@ -19,4 +19,6 @@ module.exports = (app) => {
   app.get("/getlabel/:id", auth.verifyToken, label.getLabelById);
   app.put("/updatelabel/:id", auth.verifyToken, label.updateLabel);
   app.delete("/deletelabel/:id", auth.verifyToken, label.deleteLabelById);
+
+  app.post("/addlabel/:id", auth.verifyToken, noteController.addLabelById);
 };

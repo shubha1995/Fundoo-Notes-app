@@ -1,6 +1,7 @@
 const noteService = require("../service/note.service");
 const { logger } = require("../../logger/logger");
 const { validateNote, getNoteValidation } = require("../middleware/validation");
+const labelController = require("../controllers/label.controller");
 
 class Note {
     createNote = (req, res) => {
@@ -156,6 +157,30 @@ class Note {
           message: "Note not updated",
           success: false,
           data: err
+        });
+      }
+    }
+
+    addLabelById = async (req, res) => {
+      try {
+        const id = {
+          noteId: req.params.id,
+          labelId: req.body.Id,
+          userId: req.userData.id
+        };
+        console.log(id);
+        const labels = await noteService.addLabelById(id);
+        await labelController.addNoteId(id);
+        res.status(200).send({
+          message: "Label added",
+          success: true,
+          data: labels
+        });
+      } catch (err) {
+        res.status(500).send({
+          message: "Label wasnt added",
+          success: false,
+          error: err
         });
       }
     }
