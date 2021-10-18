@@ -26,7 +26,7 @@ class Helper {
       email: data.email,
       id: data.id
     };
-    return jwt.sign(dataForToken, process.env.TOKEN_KEY, { expiresIn: "2H" });
+    return jwt.sign(dataForToken, process.env.TOKEN_KEY, { expiresIn: "24H" });
   };
 
   verifyToken = (req, res, next) => {
