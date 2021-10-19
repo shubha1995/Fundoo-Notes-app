@@ -1,8 +1,10 @@
+/* eslint-disable node/handle-callback-err */
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../server");
 const faker = require("faker");
 const noteInputs = require("./note.test.json");
+const noteDB = require("./note.test.json");
 
 chai.use(chaiHttp);
 chai.should();
@@ -427,5 +429,39 @@ describe("delete note by id api for positive and negative test case", () => {
         res.should.have.status(404);
         done();
       });
+  });
+
+  describe("Add label in notes api", () => {
+    it("givenPoperDetails_ShouldAddLabelInNote", (done) => {
+      const token = noteDB.addLebel.validToken;
+      const note = noteDB.addLabelBodyData;
+      console.log(note);
+      chai
+        .request(server)
+        .post("/addlabel/6166df9fa5f21ab8c18c93e8")
+        .set({ authorization: token })
+        .send(note)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe("Delete label in notes api", () => {
+    it.only("givenPoperDetails_ShouldDeleteLabelInNote", (done) => {
+      const token = noteDB.addLebel.validToken;
+      const note = noteDB.deleteLabelBodyData;
+      console.log(note);
+      chai
+        .request(server)
+        .delete("/deleteLabelFromNote/6166df9fa5f21ab8c18c93e8")
+        .set({ authorization: token })
+        .send(note)
+        .end((err, res) => {
+          res.should.have.status(201);
+          done();
+        });
+    });
   });
 });

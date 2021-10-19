@@ -16,5 +16,15 @@
     "DeleteById":"6166514fdd25ca899b130ecf",
     "DeleteById_InvalidId":"6166bed4bf8c44f5aa6df855",
     "DeleteById_EmptyId":""
+    },
+    "addLebel": {
+        "validToken": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsb25tdXNrQGdtYWlsLmNvbSIsImlkIjoiNjE2NmY0MWFlZjA4MjlkNzNjNDE3ZTgzIiwiaWF0IjoxNjM0NjQ5NDgwLCJleHAiOjE2MzQ3MzU4ODB9.vdWqUqDnC8lL-KyfIaMDt72q1sm2nPsTxs_G9iL9DDE"
+    },
+
+    "addLabelBodyData": {
+        "Id": "6166e82ca20168ab26f7dd82"
+    },
+    "deleteLabelBodyData": {
+        "labelId": "6166e82ca20168ab26f7dd82"
     }
 }

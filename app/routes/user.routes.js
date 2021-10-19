@@ -21,5 +21,5 @@ module.exports = (app) => {
   app.delete("/deletelabel/:id", auth.verifyToken, label.deleteLabelById);
 
   app.post("/addlabel/:id", auth.verifyToken, noteController.addLabelById);
-  app.post("/deleteLabelFromNote/:id", auth.verifyToken, noteController.deleteLabel);
+  app.delete("/deleteLabelFromNote/:id", auth.verifyToken, noteController.deleteLabel);
 };
