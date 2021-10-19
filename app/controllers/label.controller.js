@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 const { logger } = require("../../logger/logger");
 const labelService = require("../service/label.service");
 const { validateLabel } = require("../middleware/validation");
+const redisjs = require("../middleware/redis");
 class Label {
     createLabel = (req, res) => {
       try {
@@ -68,10 +70,11 @@ class Label {
       labelService.getLabelById(id, (resolve, reject) => {
         if (resolve) {
           logger.info("Found label by id");
+          redisjs.setData("getLabelById", 60, JSON.stringify(data));
           res.status(200).send({
             message: "label Found",
             success: true,
-            data: resolve
+            data: data
           });
         } else {
           logger.error("Label not found by id");

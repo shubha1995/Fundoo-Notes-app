@@ -2,6 +2,7 @@ const noteService = require("../service/note.service");
 const { logger } = require("../../logger/logger");
 const { validateNote, getNoteValidation } = require("../middleware/validation");
 const labelController = require("../controllers/label.controller");
+const redisjs = require("../middleware/redis");
 
 class Note {
     createNote = (req, res) => {
@@ -89,6 +90,7 @@ class Note {
             success: false
           });
         }
+        redisjs.setData("getNotesById", 60, JSON.stringify(data));
         return res.status(200).json({
           message: "Note retrieved succesfully",
           success: true,
