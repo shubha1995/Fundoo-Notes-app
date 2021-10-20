@@ -11,9 +11,12 @@ class Service {
         .catch((err) => { callback(null, err); });
     }
 
-    getLabelById = (id, callback) => {
-      labelModel.getLabelById(id).then((data) => { callback(data, null); })
-        .catch((err) => { callback(null, err); });
+    labelGetById = async (id) => {
+      try {
+        return await labelModel.labelGetById(id);
+      } catch (err) {
+        return err;
+      }
     }
 
     async updateLabel (label) {

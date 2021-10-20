@@ -534,7 +534,7 @@
         },
 
         "/deleteLabelFromNote/{id}": {
-            "post": {
+            "delete": {
                 "tags": ["Delete label in note"],
                 "description": "delete label in note and add note in label !!",
                 "parameters": [

@@ -65,25 +65,29 @@ class Label {
       });
     }
 
-    getLabelById = (req, res) => {
-      const id = req.params.id;
-      labelService.getLabelById(id, (resolve, reject) => {
-        if (resolve) {
-          logger.info("Found label by id");
-          redisjs.setData("getLabelById", 60, JSON.stringify(data));
-          res.status(200).send({
-            message: "label Found",
-            success: true,
-            data: data
-          });
-        } else {
-          logger.error("Label not found by id");
-          res.status(500).send({
-            message: "label not Found",
+    labelGetById = async (req, res) => {
+      try {
+        const id = { userId: req.userData.id, noteId: req.params.id };
+        const data = await labelService.labelGetById(id);
+        if (data.message) {
+          return res.status(404).json({
+            message: "label not found",
             success: false
           });
         }
-      });
+        redisjs.setData("getLabelById", 60, JSON.stringify(data));
+        return res.status(200).json({
+          message: "label retrieved succesfully",
+          success: true,
+          data: data
+        });
+      } catch (err) {
+        return res.status(500).json({
+          message: "label not updated",
+          success: false,
+          data: err
+        });
+      }
     }
 
     updateLabel =async (req, res) => {
