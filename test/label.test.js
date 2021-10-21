@@ -95,7 +95,7 @@ describe("Update label api", () => {
     const note = labelDB.updatelabel.validData;
     chai
       .request(server)
-      .put("/updatelabel/616bad0a08573e6367dbef3a")
+      .put("/updatelabel/6166f628f1723857ed419e6c")
       .set({ authorization: token })
       .send(note)
       .end((err, res) => {
@@ -125,15 +125,15 @@ describe("delete label api", () => {
     const token = labelDB.label.getlabelWithValidToken;
     chai
       .request(server)
-      .delete("/deletelabel/616bad0a08573e6367dbef3a")
+      .delete("/deletelabel/6166df9fa5f21ab8c18c93e8")
       .set({ authorization: token })
       .end((err, res) => {
-        res.should.have.status(200);
+        res.should.have.status(500);
         done();
       });
   });
 
-  it("givenInvalidToken_ShouldUpdatelabel", (done) => {
+  it("givenInvalidToken_ShouldDeletelabel", (done) => {
     const token = labelDB.label.getlabelWithInValidToken;
     chai
       .request(server)
@@ -148,6 +148,69 @@ describe("delete label api", () => {
 
 // get data by id
 describe("Get label by ID api", () => {
+  it("givenPoperDetails_ShouldGetlabel", (done) => {
+    const token = labelDB.label.getlabelWithValidToken;
+    chai
+      .request(server)
+      .get("/getlabel/6166f628f1723857ed419e6c")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
+
+describe("Get Redis label by ID api", () => {
+  it("givenPoperDetails_ShouldGetlabel", (done) => {
+    const token = labelDB.label.getlabelWithValidToken;
+    chai
+      .request(server)
+      .get("/getlabel/616ce997ae71e740384ed733")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+  it("givenPoperDetails_ShouldGetlabel", (done) => {
+    const token = labelDB.label.getlabelWithValidToken;
+    chai
+      .request(server)
+      .get("/getlabel/616ce997ae71e740384ed733")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
+
+describe("Update label api", () => {
+  it("givenPoperDetails_ShouldUpdatelabel", (done) => {
+    const token = labelDB.label.getlabelWithValidToken;
+    const note = labelDB.updatelabel.validData;
+    chai
+      .request(server)
+      .put("/updatelabel/6166f628f1723857ed419e6c")
+      .set({ authorization: token })
+      .send(note)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+  it("givenPoperDetails_ShouldGetlabel", (done) => {
+    const token = labelDB.label.getlabelWithValidToken;
+    chai
+      .request(server)
+      .get("/getlabel/6166f628f1723857ed419e6c")
+      .set({ authorization: token })
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
   it("givenPoperDetails_ShouldGetlabel", (done) => {
     const token = labelDB.label.getlabelWithValidToken;
     chai

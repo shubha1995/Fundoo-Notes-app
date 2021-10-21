@@ -4,6 +4,11 @@ const labelService = require("../service/label.service");
 const { validateLabel } = require("../middleware/validation");
 const redisjs = require("../middleware/redis");
 class Label {
+  /**
+      * @description function written to create label into database
+      * @param {*} a valid req body is expected
+      * @param {*} res
+      */
     createLabel = (req, res) => {
       try {
         const valid = validateLabel.validate(req.body);
@@ -45,6 +50,11 @@ class Label {
       }
     }
 
+    /**
+      * @description function written to get all labels
+      * @param {*} req
+      * @param {*} res
+      */
     getLabel = (req, res) => {
       const id = req.userData.id;
       labelService.getLabel(id, (resolve, reject) => {
@@ -65,6 +75,11 @@ class Label {
       });
     }
 
+    /**
+      * @description function written to get label by ID
+      * @param {*} req
+      * @param {*} res
+      */
     labelGetById = async (req, res) => {
       try {
         const id = { userId: req.userData.id, noteId: req.params.id };
@@ -90,6 +105,11 @@ class Label {
       }
     }
 
+    /**
+      * @description function written to update label
+      * @param {*} a valid req body is expected
+      * @param {*} res
+      */
     updateLabel =async (req, res) => {
       try {
         const valid = validateLabel.validate(req.body);
@@ -113,6 +133,7 @@ class Label {
               success: false
             });
           }
+          redisjs.clearCache("getLabelById");
           logger.info("label updated");
           return res.status(200).send({
             message: "label updated",
@@ -130,6 +151,11 @@ class Label {
       }
     }
 
+    /**
+      * @description function written to delete label by ID
+      * @param {*} req
+      * @param {*} res
+      */
     deleteLabelById = async (req, res) => {
       try {
         const id = { userId: req.userData.id, labelId: req.params.id };

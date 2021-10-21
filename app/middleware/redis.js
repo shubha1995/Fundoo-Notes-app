@@ -11,10 +11,10 @@ class Redis {
          logger.error(error);
          throw error;
        } else if (redis_data) {
-         logger.info("getLabels successfully retrieved");
+         logger.info("getNotes successfully retrieved");
          res.status(200).send({
            redis_NoteById: JSON.parse(redis_data),
-           message: "getlabels successfully retrieved",
+           message: "getNotes successfully retrieved",
            success: true
          });
        } else {

@@ -5,6 +5,12 @@ const labelController = require("../controllers/label.controller");
 const redisjs = require("../middleware/redis");
 
 class Note {
+  /**
+     * @description function written to create notes into the database
+     * @param {*} a valid req body is expected
+     * @param {*} res
+     * @returns response
+     */
     createNote = (req, res) => {
       try {
         const note = {
@@ -45,6 +51,11 @@ class Note {
         });
       }
     }
+    /**
+      * @description function written to get label by ID
+      * @param {*} req
+      * @param {*} res
+      */
 
     getNote = (req, res) => {
       try {
@@ -79,6 +90,12 @@ class Note {
         });
       }
     }
+    /**
+     * @description function written to get all the notes from the database
+     * @param {*} req
+     * @param {*} res
+     * @returns response
+     */
 
     getNoteById = async (req, res) => {
       try {
@@ -106,6 +123,12 @@ class Note {
       }
     }
 
+    /**
+     * @description function written to update notes using ID from the database
+     * @param {*} req
+     * @param {*} res
+     * @returns response
+     */
     updateNoteById =(req, res) => {
       try {
         const updateNote = {
@@ -122,6 +145,7 @@ class Note {
               success: false
             });
           } else {
+            redisjs.clearCache("getNotesById");
             logger.info("Successfully note updated");
             return res.status(201).send({
               message: "Successfully note updated",
@@ -138,6 +162,12 @@ class Note {
         });
       }
     }
+    /**
+   * @description : It is deleting an existing note in fundooNotes
+   * @param {httprequest} req
+   * @param {httpresponse} res
+   * @method: deleteNote from service.js
+  */
 
     deleteNoteById = async (req, res) => {
       try {
@@ -163,6 +193,12 @@ class Note {
       }
     }
 
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns
+     */
     addLabelById = async (req, res) => {
       try {
         const id = {
@@ -187,6 +223,12 @@ class Note {
       }
     }
 
+    /**
+   * @description : It is deleting an label from an existing note in fundooNotes
+   * @param {httprequest} req
+   * @param {httpresponse} res
+   * @method: deleteLabelFromNote from service.js
+  */
     deleteLabel = async (req, res) => {
       try {
         const id = {
