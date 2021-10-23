@@ -99,6 +99,7 @@ class Note {
 
     getNoteById = async (req, res) => {
       try {
+        const noteId = req.params.id;
         const id = { userId: req.userData.id, noteId: req.params.id };
         const data = await noteService.getNoteById(id);
         if (data.message) {
@@ -107,7 +108,7 @@ class Note {
             success: false
           });
         }
-        redisjs.setData("getNotesById", 60, JSON.stringify(data));
+        redisjs.setData(noteId, 60, JSON.stringify(data));
         return res.status(200).json({
           message: "Note retrieved succesfully",
           success: true,
@@ -131,6 +132,7 @@ class Note {
      */
     updateNoteById =(req, res) => {
       try {
+        const noteId = req.params.id;
         const updateNote = {
           id: req.params.id,
           userId: req.userData.id,
@@ -145,7 +147,7 @@ class Note {
               success: false
             });
           } else {
-            redisjs.clearCache("getNotesById");
+            redisjs.clearCache(noteId);
             logger.info("Successfully note updated");
             return res.status(201).send({
               message: "Successfully note updated",

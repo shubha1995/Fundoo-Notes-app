@@ -1,10 +1,10 @@
 {
     "user":{
         "validDetails":{
-            "firstName":"Naveen",
-            "lastName":"Roy",
-            "email":"naven@gmail.com",
-            "password":"Naven@5487"
+            "firstName":"Minal",
+            "lastName":"Patil",
+            "email":"minal@gmail.com",
+            "password":"Minal@1234"
         },
         "detailsWithEmptyFirstName":{
             "firstName":"",
@@ -65,7 +65,7 @@
             "password": "Password@1234567890"
         },
         "tokenOne":
-            "b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsb25tdXNrQGdtYWlsLmNvbSIsImlkIjoiNjE2NmY0MWFlZjA4MjlkNzNjNDE3ZTgzIiwiaWF0IjoxNjM0ODEzNzIxLCJleHAiOjE2MzQ5MDAxMjF9.uDeUMRvVvnHBCseGtyY9TlU4_cVE2XO3pqw1ALssLtM",
+            "b eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsb25AZ21haWwuY29tIiwiaWQiOiI2MTU0MzNmMzdlM2Y3NTRhYjNiZmMyODciLCJpYXQiOjE2MzQ5NTU4OTcsImV4cCI6MTYzNTA0MjI5N30.gB_DuathKcbQYKvFOgW6xYjEPli_FlbvQKLf66ka8j8",
         "tokenTwoInvaild": "B yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbmRlZXAudGVzdDE5OTZAZ21haWwuY29tIiwiaWQiOiI2MTYyODBmZTcwNDFhNTFjMzMxMDI0ODIiLCJpYXQiOjE2MzM4NjY2MjgsImV4cCI6MTYzMzg3MzgyOH0.h1Z6aGUpjImdPcoQBK_--MAIl5NMCUmu_14lmXxY6to",
         "tokenInvaild": "BeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hbmRlZXAudGVzdDE5OTZAZ21haWwuY29tIiwiaWQiOiI2MTYyODBmZTcwNDFhNTFjMzMxMDI0ODIiLCJpYXQiOjE2MzM4NjY2MjgsImV4cCI6MTYzMzg3MzgyOH0.h1Z6aGUpjImdPcoQBK_--MAIl5NMCUmu_14lmXxY6to"
 

@@ -82,6 +82,7 @@ class Label {
       */
     labelGetById = async (req, res) => {
       try {
+        const labelId = req.params.id;
         const id = { userId: req.userData.id, noteId: req.params.id };
         const data = await labelService.labelGetById(id);
         if (data.message) {
@@ -90,7 +91,7 @@ class Label {
             success: false
           });
         }
-        redisjs.setData("getLabelById", 60, JSON.stringify(data));
+        redisjs.setData(labelId, 60, JSON.stringify(data));
         return res.status(200).json({
           message: "label retrieved succesfully",
           success: true,
@@ -98,7 +99,7 @@ class Label {
         });
       } catch (err) {
         return res.status(500).json({
-          message: "label not updated",
+          message: "Server Error",
           success: false,
           data: err
         });
@@ -112,6 +113,7 @@ class Label {
       */
     updateLabel =async (req, res) => {
       try {
+        const labelId = req.params.id;
         const valid = validateLabel.validate(req.body);
         if (valid.error) {
           logger.error("Invalid label given to update");
@@ -133,7 +135,7 @@ class Label {
               success: false
             });
           }
-          redisjs.clearCache("getLabelById");
+          redisjs.clearCache(labelId);
           logger.info("label updated");
           return res.status(200).send({
             message: "label updated",
