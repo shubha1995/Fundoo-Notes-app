@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const userModel = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/authenticate");
@@ -65,15 +66,15 @@ class UserService {
      * @param {*} req
      * @param {*} callback
      */
-    resetPassword = (resetInfo, callback) => {
-      userModel.resetPassword(resetInfo, (error, data) => {
-        if (data) {
-          return callback(null, data);
-        } else {
-          return callback(error, null);
-        }
-      });
-    };
+     resetPassword = (resetInfo, callback) => {
+       userModel.resetPassword(resetInfo, (error, data) => {
+         if (data) {
+           return callback(null, data);
+         } else {
+           return callback(error, null);
+         }
+       });
+     };
 }
 
 module.exports = new UserService();

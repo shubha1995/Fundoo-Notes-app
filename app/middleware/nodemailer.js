@@ -19,7 +19,7 @@ exports.sendEmail = (data) => {
     to: data.email,
     subject: "Reset password Link",
     html: `<h2>please click on this link to change the password</h2>
-                <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+                <p>${process.env.CLIENT_MAIL}/resetPassword/${token}</p>
                 `
   };
 
@@ -28,7 +28,7 @@ exports.sendEmail = (data) => {
       return null;
     } else {
       const data = {
-        link: process.env.CLIENT_URL + "/resetpassword/" + token,
+        link: process.env.CLIENT_MAIL + "/resetpassword/" + token,
         response: info.response
       };
       return data;

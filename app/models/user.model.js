@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require("mongoose");
 const auth = require("../middleware/authenticate");
 const { logger } = require("../../logger/logger");
@@ -109,23 +110,23 @@ class UserModel {
      * @param {*} credentials
      * @param {*} callback
      */
-    resetPassword = (resetInfo, callback) => {
-      // Hashed Password
-      auth.hashing(resetInfo.newPassword, (err, hashedPassword) => {
-        if (err) {
-          throw err;
-        } else {
-          Userdb.findByIdAndUpdate(resetInfo.id, { password: hashedPassword }, (error, data) => {
-            if (data) {
-              logger.info("Password Updated successfully");
-              return callback(null, data);
-            } else {
-              logger.info(error);
-              return callback(error, null);
-            }
-          });
-        }
-      });
-    }
+     resetPassword = (resetInfo, callback) => {
+       // Hashed Password
+       auth.hashing(resetInfo.newPassword, (err, hashedPassword) => {
+         if (err) {
+           throw err;
+         } else {
+           Userdb.findByIdAndUpdate(resetInfo.id, { password: hashedPassword }, (error, data) => {
+             if (data) {
+               logger.info("Password Updated successfully");
+               return callback(null, data);
+             } else {
+               logger.info(error);
+               return callback(error, null);
+             }
+           });
+         }
+       });
+     }
 }
 module.exports = new UserModel();

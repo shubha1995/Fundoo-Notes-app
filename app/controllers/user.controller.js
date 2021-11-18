@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 const userService = require("../service/user.service");
 const { authUserRegister, authUserLogin, authUserforgot } = require("../middleware/validation");
 const { logger } = require("../../logger/logger");
@@ -65,7 +67,6 @@ class UserDataController {
           email: req.body.email,
           password: req.body.password
         };
-
         const loginValidation = authUserLogin.validate(loginData);
         if (loginValidation.error) {
           res.status(400).send({

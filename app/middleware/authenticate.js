@@ -31,12 +31,14 @@ class Helper {
 
   verifyToken = (req, res, next) => {
     try {
-      const header = req.headers.authorization;
-      const myArr = header.split(" ");
-      const token = myArr[1];
+      // const header = req.headers.authorization;
+      // const myArr = header.split(" ");
+      // const token = myArr[1];
+      const token = req.params.token;
       const decode = jwt.verify(token, process.env.TOKEN_KEY);
       if (decode) {
         logger.info("token verified");
+        console.log("token verified");
         req.userData = decode;
         next();
       } else {
@@ -49,4 +51,5 @@ class Helper {
     }
   };
 }
+
 module.exports = new Helper();

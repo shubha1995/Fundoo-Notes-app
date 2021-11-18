@@ -39,7 +39,6 @@ const resetSchema = Joi.object({
 const validateNote = Joi.object({
   userId: Joi.string().required(),
   title: Joi.string()
-    .min(5)
     .required(),
 
   description: Joi.string()

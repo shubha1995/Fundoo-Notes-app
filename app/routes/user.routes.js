@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.post("/login", userController.login);
   app.post("/forgotpassword", userController.forgotPassword);
   // reset user passwor
-  app.post("/resetpassword", auth.verifyToken, userController.resetPassword);
+  app.post("/resetPassword/:token", auth.verifyToken, userController.resetPassword);
   // notes creation api - POST request
   app.post("/createnotes", auth.verifyToken, noteController.createNote);
   app.get("/getnotes", auth.verifyToken, noteController.getNote);
