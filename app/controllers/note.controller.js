@@ -23,7 +23,7 @@ class Note {
           logger.error("Invalid Note");
           return res.status(400).send({
             success: false,
-            message: "Please enter valid note"
+            message: "Please enter valid notes"
           });
         }
 
